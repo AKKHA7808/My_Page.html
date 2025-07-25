@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akkhaphan Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-glass fixed-top">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold" href="#">Akkhaphan</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white active" href="#" onclick="showPage('home', event)">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#" onclick="showPage('about', event)">เกี่ยวกับ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#" onclick="showPage('contact', event)">ติดต่อ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page-content active">
+        <div class="container">
+            <div class="text-center text-white mb-5">
+                <h1 class="display-4 fw-bold mb-3">สวัสดี ฉันคือ Akkhaphan</h1>
+                <p class="lead">นักศึกษาสาขาวิชาวิทยาการคอมพิวเตอร์</p>
+            </div>
+
+            <!-- Carousel -->
+            <div class="mb-5">
+                <div id="imageCarousel" class="carousel slide glass-card" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="https://picsum.photos/800/400?random=1" class="d-block w-100" alt="Slide 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://picsum.photos/800/400?random=2" class="d-block w-100" alt="Slide 2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://picsum.photos/800/400?random=3" class="d-block w-100" alt="Slide 3">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cards -->
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card glass-card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-code fa-3x mb-3" style="color: #667eea;"></i>
+                            <h5 class="card-title">Programming</h5>
+                            <p class="card-text">ชอบเขียนโปรแกรมและเรียนรู้เทคโนโลยีใหม่ๆ</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card glass-card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-palette fa-3x mb-3" style="color: #764ba2;"></i>
+                            <h5 class="card-title">Design</h5>
+                            <p class="card-text">สนใจในการออกแบบ UI/UX และสร้างประสบการณ์ที่ดี</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card glass-card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-lightbulb fa-3x mb-3" style="color: #f093fb;"></i>
+                            <h5 class="card-title">Innovation</h5>
+                            <p class="card-text">มองหาโอกาสในการสร้างสรรค์สิ่งใหม่ๆ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page-content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="glass-card p-5">
+                        <h2 class="text-center mb-4">เกี่ยวกับฉัน</h2>
+                        <div class="text-center mb-4">
+                            <img src="https://picsum.photos/150/150?random=5" alt="Akkhaphan" class="rounded-circle mb-3" style="width: 150px; height: 150px;">
+                            <h4>Akkhaphan</h4>
+                            <p class="text-muted">นักศึกษาสาขาวิชาวิทยาการคอมพิวเตอร์</p>
+                        </div>
+                        <p class="lead text-center">สวัสดีครับ ผมชื่อ Akkhaphan เป็นนักศึกษาสาขาวิทยาการคอมพิวเตอร์ชั้นปีที่ 2</p>
+                        <h5 class="mt-4">ทักษะของฉัน</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>HTML/CSS <span class="float-end">80%</span></p>
+                                <div class="progress mb-3">
+                                    <div class="progress-bar" style="width: 80%; background: linear-gradient(45deg, #667eea, #764ba2);"></div>
+                                </div>
+                                <p>JavaScript <span class="float-end">75%</span></p>
+                                <div class="progress mb-3">
+                                    <div class="progress-bar" style="width: 75%; background: linear-gradient(45deg, #667eea, #764ba2);"></div>
+                                </div>
+                                <p>Python <span class="float-end">85%</span></p>
+                                <div class="progress mb-3">
+                                    <div class="progress-bar" style="width: 85%; background: linear-gradient(45deg, #667eea, #764ba2);"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Bootstrap <span class="float-end">70%</span></p>
+                                <div class="progress mb-3">
+                                    <div class="progress-bar" style="width: 70%; background: linear-gradient(45deg, #667eea, #764ba2);"></div>
+                                </div>
+                                <p>Django <span class="float-end">65%</span></p>
+                                <div class="progress mb-3">
+                                    <div class="progress-bar" style="width: 65%; background: linear-gradient(45deg, #667eea, #764ba2);"></div>
+                                </div>
+                                <p>Git <span class="float-end">80%</span></p>
+                                <div class="progress mb-3">
+                                    <div class="progress-bar" style="width: 80%; background: linear-gradient(45deg, #667eea, #764ba2);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page-content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="glass-card p-5">
+                        <h2 class="text-center mb-4">ติดต่อฉัน</h2>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">ชื่อ</label>
+                                        <input type="text" class="form-control" name="name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">นามสกุล</label>
+                                        <input type="text" class="form-control" name="lastname" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">อีเมล</label>
+                                <input type="email" class="form-control" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">ข้อความ</label>
+                                <textarea class="form-control" rows="4" name="message" required></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg" style="background: linear-gradient(45deg, #667eea, #764ba2); border: none;">
+                                    ส่งข้อความ
+                                </button>
+                            </div>
+                        </form>
+                        <hr class="my-4">
+                        <div class="text-center">
+                            <h5>ข้อมูลติดต่อ</h5>
+                            <p>📧 akkhaphan@example.com</p>
+                            <p>📱 +66 XX XXX XXXX</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
