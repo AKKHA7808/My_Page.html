@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from datetime import date
 import json
 
 def index(request):
@@ -26,3 +27,99 @@ def index(request):
         return render(request, 'main/index.html', context)
     
     return render(request, 'main/index.html')
+
+def for_loop_example(request):
+    """For loop example page with tables and data"""
+    
+    # Sample data for demonstration
+    items = [
+        'HTML & CSS',
+        'JavaScript & React',
+        'Python & Django',
+        'Bootstrap Framework',
+        'Git & GitHub',
+        'Database Design'
+    ]
+    
+    students = [
+        {
+            'first_name': 'สมชาย',
+            'last_name': 'ใจดี',
+            'email': 'somchai@email.com',
+            'score': 85
+        },
+        {
+            'first_name': 'สมหญิง',
+            'last_name': 'รักเรียน',
+            'email': 'somying@email.com',
+            'score': 92
+        },
+        {
+            'first_name': 'กิตติ',
+            'last_name': 'ขยันเรียน',
+            'email': 'kitti@email.com',
+            'score': 78
+        },
+        {
+            'first_name': 'อนุชา',
+            'last_name': 'ปรีชา',
+            'email': 'anucha@email.com',
+            'score': 95
+        },
+        {
+            'first_name': 'มาลี',
+            'last_name': 'สวยงาม',
+            'email': 'mali@email.com',
+            'score': 67
+        }
+    ]
+    
+    projects = [
+        {
+            'name': 'E-Commerce Website',
+            'description': 'ระบบขายของออนไลน์',
+            'technologies': ['Django', 'PostgreSQL', 'Bootstrap'],
+            'status': 'completed',
+            'progress': 100,
+            'created_date': date(2024, 1, 15)
+        },
+        {
+            'name': 'Portfolio Website',
+            'description': 'เว็บไซต์แสดงผลงาน',
+            'technologies': ['HTML', 'CSS', 'JavaScript'],
+            'status': 'completed',
+            'progress': 100,
+            'created_date': date(2024, 2, 10)
+        },
+        {
+            'name': 'Mobile App',
+            'description': 'แอพพลิเคชันมือถือ',
+            'technologies': ['React Native', 'Firebase'],
+            'status': 'in_progress',
+            'progress': 75,
+            'created_date': date(2024, 3, 5)
+        },
+        {
+            'name': 'Data Dashboard',
+            'description': 'แดชบอร์ดแสดงข้อมูล',
+            'technologies': ['Python', 'Streamlit', 'Pandas'],
+            'status': 'pending',
+            'progress': 25,
+            'created_date': date(2024, 4, 1)
+        }
+    ]
+    
+    # Handle skills data for checkboxes
+    selected_skills = []
+    if request.method == 'POST':
+        selected_skills = request.POST.getlist('skills')
+    
+    context = {
+        'items': items,
+        'students': students,
+        'projects': projects,
+        'count': range(1, 13),  # Creates a range from 1 to 12 for multiplication table
+        'selected_skills': selected_skills,
+    }
+    
+    return render(request, 'main/for.html', context)

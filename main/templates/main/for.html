@@ -1,0 +1,263 @@
+{% load static %}
+{% load math_filters %}
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Components - Akkhaphan Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Compact Theme Styles */
+        [class*="theme-"] { background-size: cover; background-position: center; background-attachment: fixed; }
+        .theme-1 { background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://picsum.photos/1920/1080?random=1'); }
+        .theme-2 { background: linear-gradient(rgba(255,0,100,0.3), rgba(0,0,0,0.3)), url('https://picsum.photos/1920/1080?random=2'); }
+        .theme-3 { background: linear-gradient(rgba(0,100,255,0.3), rgba(0,0,0,0.3)), url('https://picsum.photos/1920/1080?random=3'); }
+        .theme-4 { background: linear-gradient(rgba(0,255,100,0.3), rgba(0,0,0,0.3)), url('https://picsum.photos/1920/1080?random=4'); }
+        .theme-5 { background: linear-gradient(rgba(255,100,0,0.3), rgba(0,0,0,0.3)), url('https://picsum.photos/1920/1080?random=5'); }
+        .theme-6 { background: linear-gradient(rgba(100,255,200,0.3), rgba(0,0,0,0.3)), url('https://picsum.photos/1920/1080?random=6'); }
+        .theme-7 { background: linear-gradient(rgba(255,0,255,0.3), rgba(0,0,0,0.3)), url('https://picsum.photos/1920/1080?random=7'); }
+        .theme-8 { background: linear-gradient(rgba(100,0,255,0.3), rgba(0,0,0,0.3)), url('https://picsum.photos/1920/1080?random=8'); }
+        .theme-9 { background: linear-gradient(rgba(255,200,0,0.3), rgba(0,0,0,0.3)), url('https://picsum.photos/1920/1080?random=9'); }
+        .theme-10 { background: linear-gradient(rgba(0,200,255,0.3), rgba(0,0,0,0.3)), url('https://picsum.photos/1920/1080?random=10'); }
+
+        body { min-height: 100vh; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: background 0.5s ease; }
+        .component-card { background: rgba(255,255,255,0.95); border: none; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); backdrop-filter: blur(15px); margin-bottom: 2rem; transition: transform 0.3s ease; }
+        .component-card:hover { transform: translateY(-2px); }
+        .navbar { background: rgba(255,255,255,0.95); backdrop-filter: blur(15px); box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+        .navbar-brand, .nav-link { color: #333 !important; font-weight: 500; }
+        .section-header { color: #333; font-weight: 300; font-size: 1.75rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid #667eea; }
+        .btn-custom { background: linear-gradient(45deg, #667eea, #764ba2); border: none; color: white; padding: 10px 20px; border-radius: 6px; font-weight: 500; transition: all 0.3s ease; }
+        .btn-custom:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(102,126,234,0.4); color: white; }
+        .table { margin-bottom: 0; border-radius: 8px; overflow: hidden; }
+        .table thead th { background: #f8f9fa; border: none; font-weight: 600; color: #495057; }
+        .info-item { background: #f8f9fa; padding: 0.75rem 1rem; border-radius: 6px; margin-bottom: 0.5rem; border-left: 4px solid #667eea; }
+        .page-title { text-align: center; color: white; font-weight: 300; font-size: 2.5rem; margin-bottom: 2rem; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .theme-controller { position: fixed; top: 50%; right: 20px; transform: translateY(-50%); z-index: 1000; background: rgba(255,255,255,0.9); border-radius: 50px; padding: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); backdrop-filter: blur(10px); }
+        .theme-btn { width: 40px; height: 40px; border: 2px solid white; border-radius: 50%; margin: 5px 0; cursor: pointer; transition: all 0.3s ease; display: block; }
+        .theme-btn:hover { transform: scale(1.1); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .theme-btn.active { border: 3px solid #333; transform: scale(1.2); }
+    </style>
+</head>
+<body class="theme-1" id="mainBody">
+    <!-- Compact Theme Controller -->
+    <div class="theme-controller">
+        {% for i in "1234567890" %}
+        <div class="theme-btn theme-{{ forloop.counter }}" style="background: url('https://picsum.photos/50/50?random={{ forloop.counter }}'); background-size: cover;" onclick="changeTheme({{ forloop.counter }})"></div>
+        {% endfor %}
+        <hr style="margin: 10px 0; border-color: #ddd;">
+        <button class="btn btn-sm btn-outline-light w-100 mb-2" onclick="randomTheme()"><i class="fas fa-random"></i> Random</button>
+        <button class="btn btn-sm btn-outline-light w-100" onclick="autoChangeTheme()"><i class="fas fa-play" id="autoIcon"></i> Auto</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'main:index' %}"><i class="fas fa-code me-2"></i>Akkhaphan Portfolio</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{% url 'main:index' %}"><i class="fas fa-arrow-left me-2"></i>กลับหน้าหลัก</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container" style="margin-top: 100px; margin-bottom: 3rem;">
+        <h1 class="page-title"><i class="fas fa-cubes me-3"></i>Bootstrap Components</h1>
+        
+        <div class="row justify-content-center">
+            <div class="col-xl-10">
+                
+                <!-- Form Component -->
+                <div class="component-card p-4">
+                    <h2 class="section-header"><i class="fas fa-calculator me-2"></i>ใส่ตัวเลขที่ต้องการ</h2>
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            {% if request.method == 'POST' %}
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <i class="fas fa-check-circle me-2"></i><strong>สำเร็จ!</strong> ข้อมูลฟอร์มถูกส่งแล้ว
+                                    <ul class="list-unstyled mt-2 mb-0">
+                                        {% for key, value in request.POST.items %}
+                                            {% if key != 'csrfmiddlewaretoken' %}
+                                                <li><strong>{{ key }}:</strong> {{ value }}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endif %}
+
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="numberInput" class="form-label"><i class="fas fa-hashtag me-2"></i>ตัวเลขที่ต้องการ</label>
+                                    <input type="number" class="form-control" id="numberInput" name="number" placeholder="กรุณาใส่ตัวเลขที่ต้องการ" value="{{ request.POST.number|default:'' }}" min="1" max="100" required>
+                                    <div class="form-text">กรุณาใส่ตัวเลขระหว่าง 1-100</div>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-custom"><i class="fas fa-paper-plane me-2"></i>ส่งข้อมูล</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table Component -->
+                <div class="component-card p-4">
+                    <h2 class="section-header">
+                        <i class="fas fa-table me-2"></i>ตารางสูตรคูณ
+                        {% if request.method == 'POST' and request.POST.number %}
+                            <span class="badge bg-primary ms-2">{{ request.POST.number }}</span>
+                        {% endif %}
+                    </h2>
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-0">
+                            {% if request.method == 'POST' and request.POST.number %}
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center">#</th>
+                                            <th scope="col" class="text-center">สูตรคูณ</th>
+                                            <th scope="col" class="text-center">ผลลัพธ์</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i in count %}
+                                            <tr class="{% cycle 'table-light' '' %}">
+                                                <th scope="row" class="text-center">{{ i }}</th>
+                                                <td class="text-center"><code>{{ request.POST.number }} × {{ i }}</code></td>
+                                                <td class="text-center"><strong class="text-primary">{{ request.POST.number|multiply:i }}</strong></td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <div class="text-center py-5">
+                                    <i class="fas fa-calculator fa-3x text-muted mb-3"></i>
+                                    <h5 class="text-muted">ยังไม่มีข้อมูลสูตรคูณ</h5>
+                                    <p class="text-muted">กรุณาใส่ตัวเลขในฟอร์มด้านบนเพื่อดูตารางสูตรคูณ</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CGI Information Component -->
+                <div class="component-card p-4">
+                    <h2 class="section-header"><i class="fas fa-server me-2"></i>ข้อมูลเซิร์ฟเวอร์ (CGI Style)</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="info-item"><strong><i class="fas fa-method me-2"></i>Request Method:</strong> <span class="badge {% if request.method == 'POST' %}bg-success{% else %}bg-primary{% endif %} ms-2">{{ request.method }}</span></div>
+                            <div class="info-item"><strong><i class="fas fa-route me-2"></i>Path:</strong> <code>{{ request.path }}</code></div>
+                            <div class="info-item"><strong><i class="fas fa-network-wired me-2"></i>Remote Address:</strong> <code>{{ request.META.REMOTE_ADDR|default:"127.0.0.1" }}</code></div>
+                            {% if request.method == 'POST' %}
+                                <div class="info-item">
+                                    <strong><i class="fas fa-paper-plane me-2"></i>POST Data:</strong>
+                                    <ul class="list-unstyled mt-2 mb-0">
+                                        {% for key, value in request.POST.items %}
+                                            {% if key != 'csrfmiddlewaretoken' %}
+                                                <li><code>{{ key }}</code> = <strong>{{ value }}</strong></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-item"><strong><i class="fas fa-browser me-2"></i>User Agent:</strong> <small class="text-muted">{{ request.META.HTTP_USER_AGENT|truncatechars:60 }}</small></div>
+                            <div class="info-item"><strong><i class="fas fa-server me-2"></i>Server:</strong> <code>{{ request.META.SERVER_NAME|default:"localhost" }}:{{ request.META.SERVER_PORT|default:"8000" }}</code></div>
+                            {% if request.GET %}
+                                <div class="info-item">
+                                    <strong><i class="fas fa-link me-2"></i>GET Parameters:</strong>
+                                    <ul class="list-unstyled mt-2 mb-0">
+                                        {% for key, value in request.GET.items %}
+                                            <li><code>{{ key }}</code> = <strong>{{ value }}</strong></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                            <div class="info-item"><strong><i class="fas fa-clock me-2"></i>Content Type:</strong> <code>{{ request.content_type|default:"text/html" }}</code></div>
+                            {% if request.method == 'POST' %}
+                                <div class="info-item"><strong><i class="fas fa-shield-alt me-2"></i>CSRF Protected:</strong> <span class="badge bg-success">✓ Yes</span></div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let autoInterval = null, currentTheme = 1;
+
+        function changeTheme(themeNumber) {
+            const body = document.getElementById('mainBody');
+            for (let i = 1; i <= 10; i++) {
+                body.classList.remove('theme-' + i);
+                document.querySelector('.theme-btn.theme-' + i).classList.remove('active');
+            }
+            body.classList.add('theme-' + themeNumber);
+            document.querySelector('.theme-btn.theme-' + themeNumber).classList.add('active');
+            currentTheme = themeNumber;
+            localStorage.setItem('selectedTheme', themeNumber);
+        }
+
+        function randomTheme() {
+            const randomNumber = Math.floor(Math.random() * 10) + 1;
+            changeTheme(randomNumber);
+            showThemeNotification('🖼️ Random Image Theme #' + randomNumber);
+        }
+
+        function autoChangeTheme() {
+            const autoIcon = document.getElementById('autoIcon');
+            if (autoInterval) {
+                clearInterval(autoInterval);
+                autoInterval = null;
+                autoIcon.className = 'fas fa-play';
+                showThemeNotification('⏹️ Auto Image Theme หยุดแล้ว');
+            } else {
+                autoIcon.className = 'fas fa-pause';
+                showThemeNotification('▶️ Auto Image Theme เริ่มแล้ว!');
+                autoInterval = setInterval(() => { randomTheme(); }, 3000);
+            }
+        }
+
+        function showThemeNotification(message) {
+            const existingNotification = document.querySelector('.theme-notification');
+            if (existingNotification) existingNotification.remove();
+
+            const notification = document.createElement('div');
+            notification.className = 'theme-notification';
+            notification.style.cssText = `position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.95); color: #333; padding: 10px 20px; border-radius: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); backdrop-filter: blur(10px); z-index: 1001; font-weight: 500; font-size: 14px; animation: slideDown 0.3s ease;`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification) {
+                    notification.style.animation = 'slideUp 0.3s ease';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 2000);
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `@keyframes slideDown { from { opacity: 0; transform: translateX(-50%) translateY(-20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } } @keyframes slideUp { from { opacity: 1; transform: translateX(-50%) translateY(0); } to { opacity: 0; transform: translateX(-50%) translateY(-20px); } }`;
+        document.head.appendChild(style);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme) changeTheme(parseInt(savedTheme));
+            setTimeout(() => { randomTheme(); showThemeNotification('🌟 ยินดีต้อนรับ! ธีมภาพแบบ Random'); }, 1000);
+        });
+
+        window.addEventListener('beforeunload', function() {
+            if (Math.random() > 0.5) {
+                const randomTheme = Math.floor(Math.random() * 10) + 1;
+                localStorage.setItem('selectedTheme', randomTheme);
+            }
+        });
+    </script>
+</body>
+</html>
