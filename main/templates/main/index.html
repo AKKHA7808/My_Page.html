@@ -4,50 +4,534 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akkhaphan Portfolio</title>
+    <title>Akkhaphan Portfolio - นักพัฒนาเว็บไซต์</title>
+    
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="Portfolio ของ Akkhaphan - นักพัฒนาเว็บไซต์และโปรแกรมเมอร์">
+    <meta name="keywords" content="portfolio, web developer, programmer, django, python">
+    
+    <!-- Bootstrap 5.3 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-glass fixed-top">
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand text-white fw-bold" href="#">Akkhaphan</a>
+            <a class="navbar-brand" href="#home">
+                <i class="fas fa-code me-2"></i>Akkhaphan
+            </a>
+            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-white active" href="#" onclick="showPage('home', event)">หน้าแรก</a>
+                        <a class="nav-link active" href="#" data-page="home">
+                            <i class="fas fa-home me-1"></i>หน้าแรก
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#" onclick="showPage('about', event)">เกี่ยวกับ</a>
+                        <a class="nav-link" href="#" data-page="about">
+                            <i class="fas fa-user me-1"></i>เกี่ยวกับ
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#" onclick="showPage('contact', event)">ติดต่อ</a>
+                        <a class="nav-link" href="#" data-page="portfolio">
+                            <i class="fas fa-briefcase me-1"></i>ผลงาน
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'main:for_loop' %}">
-                            <i class="fas fa-table me-1"></i>For Loop
+                        <a class="nav-link" href="#" data-page="contact">
+                            <i class="fas fa-envelope me-1"></i>ติดต่อ
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
 
     <!-- Home Page -->
     <div id="home" class="page-content active">
-        <div class="container">
-            <div class="text-center text-white mb-5">
-                <h1 class="display-4 fw-bold mb-3">สวัสดี ฉันคือ Akkhaphan</h1>
-                <p class="lead">นักศึกษาสาขาวิชาวิทยาการคอมพิวเตอร์</p>
+        <div class="container-fluid vh-100 d-flex align-items-center">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
+                        <div class="hero-content">
+                            <h1 class="hero-title">
+                                <span class="text-white">สวัสดี ฉันคือ</span><br>
+                                <span class="gradient-text fw-bold">Akkhaphan</span>
+                            </h1>
+                            
+                            <div class="typewriter-container">
+                                <span class="text-white fs-4">ฉันเป็น </span>
+                                <span id="typewriter" class="gradient-text fs-4 fw-semibold"></span>
+                            </div>
+                            
+                            <p class="hero-description text-white-50 my-4">
+                                นักศึกษาสาขาวิชาวิทยาการคอมพิวเตอร์ที่หลงใหลในการพัฒนาเว็บไซต์ 
+                                และสร้างสรรค์โซลูชันทางเทคโนโลยี
+                            </p>
+                            
+                            <div class="hero-buttons">
+                                <button class="btn btn-gradient btn-lg me-3" onclick="showPage('portfolio', event)">
+                                    <i class="fas fa-eye me-2"></i>ดูผลงาน
+                                </button>
+                                <button class="btn btn-outline-light btn-lg" onclick="showPage('contact', event)">
+                                    <i class="fas fa-paper-plane me-2"></i>ติดต่อฉัน
+                                </button>
+                            </div>
+                            
+                            <!-- Social Links -->
+                            <div class="social-links mt-4">
+                                <a href="#" class="social-link" data-bs-toggle="tooltip" title="GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="social-link" data-bs-toggle="tooltip" title="LinkedIn">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <a href="#" class="social-link" data-bs-toggle="tooltip" title="Facebook">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                                <a href="#" class="social-link" data-bs-toggle="tooltip" title="Instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 text-center" data-aos="fade-left" data-aos-duration="1000">
+                        <div class="hero-image">
+                            <div class="floating-card">
+                                <img src="https://via.placeholder.com/400x400/667eea/ffffff?text=👨‍💻" 
+                                     alt="Akkhaphan Profile" class="profile-image">
+                                <div class="floating-icons">
+                                    <i class="fab fa-python floating-icon" style="--delay: 0s;"></i>
+                                    <i class="fab fa-js-square floating-icon" style="--delay: 1s;"></i>
+                                    <i class="fab fa-react floating-icon" style="--delay: 2s;"></i>
+                                    <i class="fab fa-html5 floating-icon" style="--delay: 3s;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Scroll Indicator -->
+                <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="1500">
+                    <div class="scroll-mouse">
+                        <div class="scroll-wheel"></div>
+                    </div>
+                    <p class="text-white-50 small mt-2">เลื่อนลงเพื่อดูเพิ่มเติม</p>
+                </div>
             </div>
+        </div>
+        
+        <!-- Skills Section -->
+        <div class="container my-5" data-aos="fade-up">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title gradient-text">ทักษะของฉัน</h2>
+                    <p class="text-white-50">เทคโนโลยีและเครื่องมือที่ฉันใช้งาน</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="skill-card">
+                        <i class="fab fa-python skill-icon"></i>
+                        <h5>Python</h5>
+                        <div class="progress-ring">
+                            <div class="progress-value" data-value="90">90%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="skill-card">
+                        <i class="fab fa-js-square skill-icon"></i>
+                        <h5>JavaScript</h5>
+                        <div class="progress-ring">
+                            <div class="progress-value" data-value="85">85%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="skill-card">
+                        <i class="fab fa-html5 skill-icon"></i>
+                        <h5>HTML5</h5>
+                        <div class="progress-ring">
+                            <div class="progress-value" data-value="95">95%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="skill-card">
+                        <i class="fab fa-css3-alt skill-icon"></i>
+                        <h5>CSS3</h5>
+                        <div class="progress-ring">
+                            <div class="progress-value" data-value="88">88%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About Page -->
+    <div id="about" class="page-content">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="about-image">
+                        <img src="https://via.placeholder.com/500x600/667eea/ffffff?text=About+Me" 
+                             alt="About Akkhaphan" class="img-fluid rounded-4 shadow-lg">
+                        <div class="experience-badge">
+                            <i class="fas fa-graduation-cap"></i>
+                            <div>
+                                <strong>3+</strong>
+                                <span>ปีประสบการณ์</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="about-content">
+                        <h2 class="section-title gradient-text mb-4">เกี่ยวกับฉัน</h2>
+                        
+                        <p class="text-white-50 mb-4">
+                            สวัสดีครับ! ผมเป็นนักศึกษาสาขาวิชาวิทยาการคอมพิวเตอร์ที่มีความหลงใหลในการพัฒนาเว็บไซต์ 
+                            และการสร้างสรรค์โซลูชันทางเทคโนโลยี ผมมีประสบการณ์ในการทำงานกับเทคโนโลยีต่างๆ 
+                            ทั้ง Frontend และ Backend
+                        </p>
+                        
+                        <div class="row mb-4">
+                            <div class="col-sm-6">
+                                <div class="info-item">
+                                    <i class="fas fa-birthday-cake info-icon"></i>
+                                    <div>
+                                        <strong>วันเกิด:</strong>
+                                        <span>15 มกราคม 2545</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="info-item">
+                                    <i class="fas fa-map-marker-alt info-icon"></i>
+                                    <div>
+                                        <strong>ที่อยู่:</strong>
+                                        <span>กรุงเทพมหานคร</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="info-item">
+                                    <i class="fas fa-envelope info-icon"></i>
+                                    <div>
+                                        <strong>อีเมล:</strong>
+                                        <span>akkhaphan@example.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="info-item">
+                                    <i class="fas fa-phone info-icon"></i>
+                                    <div>
+                                        <strong>โทรศัพท์:</strong>
+                                        <span>+66 XX XXX XXXX</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="interests mb-4">
+                            <h5 class="text-white mb-3">ความสนใจ</h5>
+                            <div class="interest-tags">
+                                <span class="interest-tag">Web Development</span>
+                                <span class="interest-tag">Machine Learning</span>
+                                <span class="interest-tag">UI/UX Design</span>
+                                <span class="interest-tag">Mobile Apps</span>
+                                <span class="interest-tag">Cloud Computing</span>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-gradient btn-lg">
+                            <i class="fas fa-download me-2"></i>ดาวน์โหลด CV
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Education & Experience Timeline -->
+            <div class="row mt-5" data-aos="fade-up">
+                <div class="col-12">
+                    <h3 class="section-title gradient-text text-center mb-5">การศึกษาและประสบการณ์</h3>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                            <div class="timeline-dot education"></div>
+                            <div class="timeline-content">
+                                <h5>ปริญญาตรี วิทยาการคอมพิวเตอร์</h5>
+                                <p class="timeline-date">2563 - ปัจจุบัน</p>
+                                <p>มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                            <div class="timeline-dot work"></div>
+                            <div class="timeline-content">
+                                <h5>Frontend Developer Intern</h5>
+                                <p class="timeline-date">มิ.ย. 2566 - ส.ค. 2566</p>
+                                <p>บริษัท Tech Solutions Ltd.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                            <div class="timeline-dot education"></div>
+                            <div class="timeline-content">
+                                <h5>มัธยมศึกษาตอนปลาย</h5>
+                                <p class="timeline-date">2560 - 2562</p>
+                                <p>โรงเรียนสาธิตมหาวิทยาลัยเกษตรศาสตร์</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <!-- Carousel -->
-            <div class="mb-5">
+    <!-- Portfolio Page -->
+    <div id="portfolio" class="page-content">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title gradient-text">ผลงานของฉัน</h2>
+                <p class="text-white-50">โปรเจคที่ฉันได้พัฒนาและสร้างสรรค์</p>
+            </div>
+            
+            <!-- Portfolio Filter -->
+            <div class="text-center mb-5" data-aos="fade-up" data-aos-delay="100">
+                <div class="portfolio-filter">
+                    <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
+                    <button class="filter-btn" data-filter="web">เว็บไซต์</button>
+                    <button class="filter-btn" data-filter="mobile">แอปพลิเคชัน</button>
+                    <button class="filter-btn" data-filter="design">ดีไซน์</button>
+                </div>
+            </div>
+            
+            <!-- Portfolio Grid -->
+            <div class="row g-4" id="portfolioGrid">
+                <div class="col-lg-4 col-md-6 portfolio-item" data-category="web" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <img src="https://via.placeholder.com/400x300/667eea/ffffff?text=E-Commerce" alt="E-Commerce Website">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-actions">
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="ดูรายละเอียด">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="ดูเว็บไซต์">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h5>E-Commerce Website</h5>
+                            <p class="text-white-50">เว็บไซต์ขายของออนไลน์ด้วย Django และ React</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Django</span>
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 portfolio-item" data-category="mobile" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <img src="https://via.placeholder.com/400x300/764ba2/ffffff?text=Mobile+App" alt="Mobile App">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-actions">
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="ดูรายละเอียด">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="Download">
+                                        <i class="fas fa-download"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h5>Task Manager App</h5>
+                            <p class="text-white-50">แอปจัดการงานสำหรับมือถือ</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">React Native</span>
+                                <span class="tech-tag">Firebase</span>
+                                <span class="tech-tag">Redux</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 portfolio-item" data-category="web" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <img src="https://via.placeholder.com/400x300/f093fb/ffffff?text=Portfolio" alt="Portfolio Website">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-actions">
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="ดูรายละเอียด">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="ดูเว็บไซต์">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h5>Portfolio Website</h5>
+                            <p class="text-white-50">เว็บไซต์แสดงผลงานส่วนตัว</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Django</span>
+                                <span class="tech-tag">Bootstrap</span>
+                                <span class="tech-tag">JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 portfolio-item" data-category="design" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <img src="https://via.placeholder.com/400x300/4facfe/ffffff?text=UI+Design" alt="UI Design">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-actions">
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="ดูรายละเอียด">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="Figma">
+                                        <i class="fab fa-figma"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="Behance">
+                                        <i class="fab fa-behance"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h5>Banking App UI</h5>
+                            <p class="text-white-50">การออกแบบ UI สำหรับแอปธนาคาร</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Figma</span>
+                                <span class="tech-tag">Adobe XD</span>
+                                <span class="tech-tag">Illustrator</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 portfolio-item" data-category="web" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <img src="https://via.placeholder.com/400x300/00dbde/ffffff?text=Dashboard" alt="Admin Dashboard">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-actions">
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="ดูรายละเอียด">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="ดูเว็บไซต์">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h5>Admin Dashboard</h5>
+                            <p class="text-white-50">แดชบอร์ดสำหรับจัดการระบบ</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Vue.js</span>
+                                <span class="tech-tag">Laravel</span>
+                                <span class="tech-tag">MySQL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 portfolio-item" data-category="mobile" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <img src="https://via.placeholder.com/400x300/fc466b/ffffff?text=Food+App" alt="Food Delivery App">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-actions">
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="ดูรายละเอียด">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" data-bs-toggle="tooltip" title="Download">
+                                        <i class="fas fa-download"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h5>Food Delivery App</h5>
+                            <p class="text-white-50">แอปสั่งอาหารออนไลน์</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Flutter</span>
+                                <span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">MongoDB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
                 <div id="imageCarousel" class="carousel slide glass-card" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -201,9 +685,177 @@
         </div>
     </div>
 
+    <!-- Contact Page -->
+    <div id="contact" class="page-content">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title gradient-text">ติดต่อเรา</h2>
+                <p class="text-white-50">ต้องการความช่วยเหลือหรือมีโปรเจคน่าสนใจ? ส่งข้อความมาหาเราได้เลย</p>
+            </div>
+            
+            <div class="row g-5">
+                <!-- Contact Form -->
+                <div class="col-lg-8" data-aos="fade-right">
+                    <form id="contactForm" class="contact-form">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="firstName" name="first_name" placeholder="ชื่อ" required>
+                                    <label for="firstName">ชื่อ</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="lastName" name="last_name" placeholder="นามสกุล" required>
+                                    <label for="lastName">นามสกุล</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="อีเมล" required>
+                                    <label for="email">อีเมล</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="เบอร์โทรศัพท์">
+                                    <label for="phone">เบอร์โทรศัพท์ (ไม่บังคับ)</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" id="subject" name="subject" required>
+                                        <option value="">เลือกหัวข้อ</option>
+                                        <option value="web-development">พัฒนาเว็บไซต์</option>
+                                        <option value="ui-design">ออกแบบ UI/UX</option>
+                                        <option value="consultation">ปรึกษาโปรเจค</option>
+                                        <option value="collaboration">ร่วมงาน</option>
+                                        <option value="other">อื่นๆ</option>
+                                    </select>
+                                    <label for="subject">หัวข้อเรื่อง</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="message" name="message" placeholder="ข้อความ" style="height: 150px" required></textarea>
+                                    <label for="message">ข้อความ</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                    <label class="form-check-label text-white-50" for="agreeTerms">
+                                        ฉันยอมรับ <a href="#" class="text-decoration-none" style="color: #ff6b6b;">เงื่อนไขการใช้งาน</a> และ <a href="#" class="text-decoration-none" style="color: #4ecdc4;">นโยบายความเป็นส่วนตัว</a>
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-gradient btn-lg w-100">
+                                    <i class="fas fa-paper-plane me-2"></i>ส่งข้อความ
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="col-lg-4" data-aos="fade-left">
+                    <div class="contact-info">
+                        <h4 class="gradient-text mb-4">ข้อมูลการติดต่อ</h4>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">ที่อยู่</h6>
+                                <p class="text-white-50 mb-0">กรุงเทพมหานคร, ประเทศไทย</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item" onclick="copyEmail()">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">อีเมล</h6>
+                                <p class="text-white-50 mb-0">akkhaphan@example.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">โทรศัพท์</h6>
+                                <p class="text-white-50 mb-0">+66 XX XXX XXXX</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">เวลาทำการ</h6>
+                                <p class="text-white-50 mb-0">จันทร์ - ศุกร์: 9:00 - 18:00</p>
+                            </div>
+                        </div>
+                        
+                        <hr class="my-4" style="border-color: rgba(255,255,255,0.2);">
+                        
+                        <h6 class="mb-3">ติดตามเราได้ที่</h6>
+                        <div class="social-links">
+                            <a href="#" class="social-link" data-bs-toggle="tooltip" title="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="social-link" data-bs-toggle="tooltip" title="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="social-link" data-bs-toggle="tooltip" title="Facebook">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a href="#" class="social-link" data-bs-toggle="tooltip" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link" data-bs-toggle="tooltip" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <small class="text-white-50">
+                                <i class="fas fa-info-circle me-2"></i>
+                                เราตอบกลับภายใน 24 ชั่วโมง
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Icons -->
+    <div class="floating-icon" style="font-size: 2rem; color: rgba(255,255,255,0.1);">
+        <i class="fas fa-code"></i>
+    </div>
+    <div class="floating-icon" style="font-size: 1.5rem; color: rgba(255,255,255,0.1);">
+        <i class="fas fa-laptop"></i>
+    </div>
+    <div class="floating-icon" style="font-size: 2.5rem; color: rgba(255,255,255,0.1);">
+        <i class="fas fa-mobile-alt"></i>
+    </div>
+    <div class="floating-icon" style="font-size: 1.8rem; color: rgba(255,255,255,0.1);">
+        <i class="fas fa-palette"></i>
+    </div>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
