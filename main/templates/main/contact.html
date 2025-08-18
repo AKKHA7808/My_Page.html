@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ติดต่อ - Portfolio</title>
+    {% load static %}
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top glass-nav scrolled">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'main:home' %}">
+                <i class="fas fa-code me-2"></i>Portfolio
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:home' %}">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:about' %}">เกี่ยวกับ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'main:contact' %}">ติดต่อ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:for_loop' %}">For Loop</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section min-vh-100 py-5">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="row">
+                <div class="col-12 text-center mb-5" data-aos="fade-down">
+                    <h1 class="display-4 fw-bold mb-3">ติดต่อผม</h1>
+                    <p class="lead">พร้อมที่จะรับฟังและทำงานร่วมกับคุณ</p>
+                </div>
+            </div>
+
+            <!-- Success Message -->
+            {% if message_sent %}
+            <div class="row mb-4">
+                <div class="col-lg-8 mx-auto">
+                    <div class="alert alert-success alert-dismissible fade show glass-card" role="alert" data-aos="fade-up">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <strong>ส่งข้อความสำเร็จ!</strong> ขอบคุณที่ติดต่อมา เราจะตอบกลับโดยเร็วที่สุด
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="row">
+                <!-- Contact Info -->
+                <div class="col-lg-4 mb-5" data-aos="fade-right">
+                    <div class="contact-info">
+                        <h3 class="h4 mb-4">ข้อมูลติดต่อ</h3>
+                        
+                        <div class="contact-item glass-card p-4 mb-4">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-content">
+                                <h5>ที่อยู่</h5>
+                                <p class="mb-0">กรุงเทพมหานคร<br>ประเทศไทย</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item glass-card p-4 mb-4">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-content">
+                                <h5>โทรศัพท์</h5>
+                                <p class="mb-0">+66 XX XXX XXXX</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item glass-card p-4 mb-4">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-content">
+                                <h5>อีเมล</h5>
+                                <p class="mb-0">developer@example.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item glass-card p-4">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-content">
+                                <h5>เวลาทำการ</h5>
+                                <p class="mb-0">จันทร์ - ศุกร์: 9:00 - 18:00<br>เสาร์ - อาทิตย์: 10:00 - 16:00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="col-lg-8" data-aos="fade-left">
+                    <div class="contact-form glass-card p-5">
+                        <h3 class="h4 mb-4">ส่งข้อความถึงผม</h3>
+                        
+                        <form method="post" id="contactForm">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">ชื่อ *</label>
+                                    <input type="text" class="form-control glass-input" id="name" name="name" 
+                                           value="{% if form_data %}{{ form_data.name }}{% endif %}" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastname" class="form-label">นามสกุล *</label>
+                                    <input type="text" class="form-control glass-input" id="lastname" name="lastname" 
+                                           value="{% if form_data %}{{ form_data.lastname }}{% endif %}" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">อีเมล *</label>
+                                <input type="email" class="form-control glass-input" id="email" name="email" 
+                                       value="{% if form_data %}{{ form_data.email }}{% endif %}" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="message" class="form-label">ข้อความ *</label>
+                                <textarea class="form-control glass-input" id="message" name="message" rows="6" 
+                                          required>{% if form_data %}{{ form_data.message }}{% endif %}</textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i>ส่งข้อความ
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Links Section -->
+            <div class="row mt-5">
+                <div class="col-12 text-center" data-aos="fade-up">
+                    <div class="social-section glass-card p-5">
+                        <h3 class="h4 mb-4">ติดตามผมได้ที่</h3>
+                        <div class="social-links-large">
+                            <a href="#" class="social-link-large" data-bs-toggle="tooltip" title="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="social-link-large" data-bs-toggle="tooltip" title="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="social-link-large" data-bs-toggle="tooltip" title="Facebook">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a href="#" class="social-link-large" data-bs-toggle="tooltip" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-link-large" data-bs-toggle="tooltip" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <h3 class="text-center mb-5" data-aos="fade-up">คำถามที่พบบ่อย</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="accordion" id="faqAccordion" data-aos="fade-up">
+                        <div class="accordion-item glass-card mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                                        data-bs-target="#faq1">
+                                    ระยะเวลาในการพัฒนาเว็บไซต์เป็นอย่างไร?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    ระยะเวลาขึ้นอยู่กับความซับซ้อนของโปรเจค โดยทั่วไปเว็บไซต์ธรรมดาใช้เวลา 2-4 สัปดาห์ 
+                                    ส่วนเว็บแอปพลิเคชันที่ซับซ้อนอาจใช้เวลา 2-3 เดือน
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item glass-card mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                        data-bs-target="#faq2">
+                                    ค่าใช้จ่ายในการพัฒนาเป็นอย่างไร?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    ค่าใช้จ่ายจะขึ้นอยู่กับขอบเขตของงานและความซับซ้อน เราสามารถหารือและวางแผนงบประมาณ
+                                    ที่เหมาะสมกับความต้องการของคุณได้
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item glass-card mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                        data-bs-target="#faq3">
+                                    มีการดูแลและซัพพอร์ตหลังการส่งมอบหรือไม่?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    มีครับ เรามีบริการดูแลและซัพพอร์ตหลังการส่งมอบ รวมทั้งการอัปเดตและแก้ไขปัญหาต่างๆ 
+                                    เพื่อให้เว็บไซต์ทำงานได้อย่างราบรื่น
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item glass-card">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                        data-bs-target="#faq4">
+                                    เว็บไซต์จะทำงานได้ดีบนมือถือหรือไม่?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    แน่นอนครับ เว็บไซต์ที่เราพัฒนาจะเป็น Responsive Design ทำงานได้ดีบนทุกอุปกรณ์ 
+                                    ไม่ว่าจะเป็นคอมพิวเตอร์ แท็บเล็ต หรือมือถือ
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+
+        // Form validation and submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            const form = this;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>กำลังส่ง...';
+            submitBtn.disabled = true;
+            
+            // Simulate form processing (remove this in production)
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>ส่งข้อความ';
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Add floating label effect
+        document.querySelectorAll('.glass-input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+            
+            input.addEventListener('blur', function() {
+                if (this.value === '') {
+                    this.parentElement.classList.remove('focused');
+                }
+            });
+            
+            // Check if input has value on page load
+            if (input.value !== '') {
+                input.parentElement.classList.add('focused');
+            }
+        });
+
+        // Animate contact items on scroll
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.style.opacity = '1';
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.contact-item').forEach(item => {
+            item.style.transform = 'translateY(20px)';
+            item.style.opacity = '0';
+            item.style.transition = 'all 0.6s ease';
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>

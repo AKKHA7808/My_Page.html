@@ -5,7 +5,15 @@ from datetime import date
 import json
 
 def index(request):
-    """Main portfolio page with all sections"""
+    """Main portfolio page - Home section"""
+    return render(request, 'main/home.html')
+
+def about(request):
+    """About page with personal information"""
+    return render(request, 'main/about.html')
+
+def contact(request):
+    """Contact page with form"""
     if request.method == 'POST':
         # Handle contact form submission
         name = request.POST.get('name')
@@ -24,9 +32,9 @@ def index(request):
                 'message': message
             }
         }
-        return render(request, 'main/index.html', context)
+        return render(request, 'main/contact.html', context)
     
-    return render(request, 'main/index.html')
+    return render(request, 'main/contact.html')
 
 def for_loop_example(request):
     """For loop example page with tables and data"""

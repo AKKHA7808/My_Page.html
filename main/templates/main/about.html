@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เกี่ยวกับ - Portfolio</title>
+    {% load static %}
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top glass-nav scrolled">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'main:home' %}">
+                <i class="fas fa-code me-2"></i>Portfolio
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:home' %}">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'main:about' %}">เกี่ยวกับ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:contact' %}">ติดต่อ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:for_loop' %}">For Loop</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <section id="about" class="about-section min-vh-100 py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Page Header -->
+                <div class="col-12 text-center mb-5" data-aos="fade-down">
+                    <h1 class="display-4 fw-bold mb-3">เกี่ยวกับผม</h1>
+                    <p class="lead">ความหลงใหลในการพัฒนาเว็บและเทคโนโลยี</p>
+                </div>
+            </div>
+
+            <div class="row align-items-center mb-5">
+                <!-- Profile Image -->
+                <div class="col-lg-4 mb-4" data-aos="fade-right">
+                    <div class="profile-image-container text-center">
+                        <div class="profile-image glass-card">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Content -->
+                <div class="col-lg-8" data-aos="fade-left">
+                    <div class="about-content glass-card p-4">
+                        <h2 class="h3 mb-4">นักพัฒนาเว็บ Full Stack</h2>
+                        <p class="mb-4">
+                            สวัสดีครับ! ผมเป็นนักพัฒนาเว็บไซต์ที่มีความหลงใหลในการสร้างสรรค์เว็บแอปพลิเคชันที่สวยงามและใช้งานง่าย 
+                            ด้วยประสบการณ์ในการพัฒนาเว็บมากกว่า 3 ปี ผมมีความเชี่ยวชาญในเทคโนโลยีต่างๆ เช่น Django, Python, 
+                            JavaScript และ React
+                        </p>
+                        <p class="mb-4">
+                            ผมเชื่อว่าการพัฒนาเว็บไซต์ไม่เพียงแค่การเขียนโค้ด แต่เป็นการสร้างประสบการณ์ที่ดีให้กับผู้ใช้งาน 
+                            และการแก้ปัญหาที่ซับซ้อนให้กลายเป็นเรื่องง่าย
+                        </p>
+                        
+                        <!-- Personal Info -->
+                        <div class="personal-info">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="info-list">
+                                        <li><strong>ชื่อ:</strong> นักพัฒนาเว็บ</li>
+                                        <li><strong>อาชีพ:</strong> Full Stack Developer</li>
+                                        <li><strong>ประสบการณ์:</strong> 3+ ปี</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="info-list">
+                                        <li><strong>อีเมล:</strong> developer@example.com</li>
+                                        <li><strong>โทรศัพท์:</strong> +66 XX XXX XXXX</li>
+                                        <li><strong>ที่อยู่:</strong> กรุงเทพมหานคร</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Section -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="text-center mb-5" data-aos="fade-up">ความสามารถ</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Frontend Skills -->
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="skills-card glass-card p-4">
+                        <h3 class="h5 mb-4"><i class="fas fa-paint-brush me-2"></i>Frontend</h3>
+                        
+                        <div class="skill-item">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>HTML & CSS</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="progress skill-progress">
+                                <div class="progress-bar" role="progressbar" style="width: 95%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>JavaScript</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="progress skill-progress">
+                                <div class="progress-bar" role="progressbar" style="width: 90%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>React</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="progress skill-progress">
+                                <div class="progress-bar" role="progressbar" style="width: 85%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Bootstrap</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="progress skill-progress">
+                                <div class="progress-bar" role="progressbar" style="width: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend Skills -->
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="skills-card glass-card p-4">
+                        <h3 class="h5 mb-4"><i class="fas fa-server me-2"></i>Backend</h3>
+                        
+                        <div class="skill-item">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Python</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="progress skill-progress">
+                                <div class="progress-bar" role="progressbar" style="width: 90%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Django</span>
+                                <span>88%</span>
+                            </div>
+                            <div class="progress skill-progress">
+                                <div class="progress-bar" role="progressbar" style="width: 88%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>PostgreSQL</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="progress skill-progress">
+                                <div class="progress-bar" role="progressbar" style="width: 80%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Git & GitHub</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="progress skill-progress">
+                                <div class="progress-bar" role="progressbar" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Experience Timeline -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <h2 class="text-center mb-5" data-aos="fade-up">ประสบการณ์การทำงาน</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="timeline">
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                            <div class="timeline-card glass-card">
+                                <div class="timeline-date">2022 - ปัจจุบัน</div>
+                                <h4>Senior Full Stack Developer</h4>
+                                <h6 class="text-muted mb-3">Tech Company</h6>
+                                <p>พัฒนาเว็บแอปพลิเคชันขนาดใหญ่ด้วย Django และ React พร้อมทั้งดูแลทีมนักพัฒนา</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                            <div class="timeline-card glass-card">
+                                <div class="timeline-date">2021 - 2022</div>
+                                <h4>Full Stack Developer</h4>
+                                <h6 class="text-muted mb-3">Startup Company</h6>
+                                <p>พัฒนาระบบ E-commerce และ CRM ด้วย Django และเทคโนโลยีสมัยใหม่</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                            <div class="timeline-card glass-card">
+                                <div class="timeline-date">2020 - 2021</div>
+                                <h4>Junior Web Developer</h4>
+                                <h6 class="text-muted mb-3">Web Agency</h6>
+                                <p>เริ่มต้นการทำงานในสายพัฒนาเว็บไซต์ เรียนรู้และพัฒนาทักษะการเขียนโปรแกรม</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="row mt-5">
+                <div class="col-12 text-center" data-aos="fade-up">
+                    <div class="cta-section glass-card p-5">
+                        <h3 class="mb-4">พร้อมที่จะทำงานร่วมกันหรือยัง?</h3>
+                        <p class="mb-4">หากคุณมีโปรเจคที่น่าสนใจหรือต้องการปรึกษาเรื่องการพัฒนาเว็บไซต์</p>
+                        <a href="{% url 'main:contact' %}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-envelope me-2"></i>ติดต่อผม
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Animate progress bars when they come into view
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBars = entry.target.querySelectorAll('.progress-bar');
+                    progressBars.forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0%';
+                        setTimeout(() => {
+                            bar.style.transition = 'width 1.5s ease-in-out';
+                            bar.style.width = width;
+                        }, 200);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all skills cards
+        document.querySelectorAll('.skills-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
