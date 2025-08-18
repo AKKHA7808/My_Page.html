@@ -67,11 +67,10 @@ class Project(models.Model):
         verbose_name="รายละเอียดย่อ",
         help_text="รายละเอียดสั้นๆ สำหรับแสดงในการ์ด"
     )
-    image = models.ImageField(
-        upload_to='projects/',
+    image_url = models.URLField(
         blank=True,
-        null=True,
-        verbose_name="รูปภาพ"
+        verbose_name="URL รูปภาพ",
+        help_text="URL ของรูปภาพโปรเจค"
     )
     technologies = models.ManyToManyField(
         Skill,
@@ -123,17 +122,15 @@ class SiteConfiguration(models.Model):
     linkedin_url = models.URLField(blank=True, verbose_name="LinkedIn URL")
     facebook_url = models.URLField(blank=True, verbose_name="Facebook URL")
     twitter_url = models.URLField(blank=True, verbose_name="Twitter URL")
-    resume_file = models.FileField(
-        upload_to='documents/',
+    resume_url = models.URLField(
         blank=True,
-        null=True,
-        verbose_name="ไฟล์เรซูเม่"
+        verbose_name="URL ไฟล์เรซูเม่",
+        help_text="URL ของไฟล์เรซูเม่"
     )
-    profile_image = models.ImageField(
-        upload_to='profile/',
+    profile_image_url = models.URLField(
         blank=True,
-        null=True,
-        verbose_name="รูปโปรไฟล์"
+        verbose_name="URL รูปโปรไฟล์",
+        help_text="URL ของรูปโปรไฟล์"
     )
     updated_at = models.DateTimeField(auto_now=True, verbose_name="วันที่อัพเดท")
     

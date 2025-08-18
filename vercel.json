@@ -8,25 +8,9 @@
         "maxLambdaSize": "15mb", 
         "runtime": "python3.11"
       }
-    },
-    {
-      "src": "static/**",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
-    {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
-    },
-    {
-      "src": "/favicon.ico",
-      "dest": "/static/favicon.ico"
-    },
-    {
-      "src": "/robots.txt",
-      "dest": "/static/robots.txt"
-    },
     {
       "src": "/(.*)",
       "dest": "index.py"
@@ -34,21 +18,6 @@
   ],
   "env": {
     "DEBUG": "False",
-    "DJANGO_ENV": "production",
-    "PYTHONPATH": ".",
-    "DJANGO_SETTINGS_MODULE": "portfolio.settings.production"
-  },
-  "functions": {
-    "index.py": {
-      "includeFiles": "**",
-      "excludeFiles": [
-        "node_modules/**",
-        ".git/**",
-        "__pycache__/**",
-        "*.pyc",
-        ".venv/**",
-        "venv/**"
-      ]
-    }
+    "DJANGO_ENV": "production"
   }
 }
