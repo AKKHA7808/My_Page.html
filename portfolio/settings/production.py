@@ -16,7 +16,15 @@ ALLOWED_HOSTS = [
     'www.your-domain.com',
     '.vercel.app',  # For Vercel deployment
     '.herokuapp.com',  # For Heroku deployment
+    'localhost',  # For local testing
+    '127.0.0.1',  # For local testing
 ]
+
+# Add Vercel domains if available
+if os.environ.get('VERCEL_URL'):
+    ALLOWED_HOSTS.append(os.environ.get('VERCEL_URL'))
+if os.environ.get('VERCEL_DOMAIN'):
+    ALLOWED_HOSTS.append(os.environ.get('VERCEL_DOMAIN'))
 
 # Database - PostgreSQL for production (fallback to SQLite)
 if 'DATABASE_URL' in os.environ:
@@ -49,7 +57,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
 
 # Security settings for production
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False  # Vercel handles SSL
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 31536000

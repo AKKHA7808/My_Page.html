@@ -1,14 +1,12 @@
-# Base requirements
+# Base requirements for Vercel deployment
 Django==5.1.4
 whitenoise==6.8.2
-gunicorn==23.0.0
-
-# Environment and configuration
-python-decouple==3.8
-dj-database-url==2.1.0
 
 # Image processing (for ImageField)
 Pillow==10.4.0
 
-# Additional utilities
-django-extensions==3.2.3
+# Remove packages that might cause issues on Vercel
+# gunicorn==23.0.0  # Not needed on Vercel
+# python-decouple==3.8  # Using os.environ instead
+# dj-database-url==2.1.0  # Not needed for SQLite
+# django-extensions==3.2.3  # Development only

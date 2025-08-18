@@ -4,13 +4,9 @@
     {
       "src": "portfolio/wsgi.py",
       "use": "@vercel/python",
-      "config": { "maxLambdaSize": "15mb", "runtime": "python3.11" }
-    },
-    {
-      "src": "build.sh",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "staticfiles"
+      "config": { 
+        "maxLambdaSize": "15mb", 
+        "runtime": "python3.11"
       }
     }
   ],
@@ -25,6 +21,17 @@
     }
   ],
   "env": {
-    "DEBUG": "False"
+    "DEBUG": "False",
+    "DJANGO_ENV": "production"
+  },
+  "build": {
+    "env": {
+      "PYTHONPATH": "$PYTHONPATH:."
+    }
+  },
+  "functions": {
+    "portfolio/wsgi.py": {
+      "includeFiles": "**"
+    }
   }
 }
