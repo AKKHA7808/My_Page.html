@@ -2,12 +2,16 @@
   "version": 2,
   "builds": [
     {
-      "src": "portfolio/wsgi.py",
+      "src": "index.py",
       "use": "@vercel/python",
       "config": { 
         "maxLambdaSize": "15mb", 
         "runtime": "python3.11"
       }
+    },
+    {
+      "src": "static/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -16,22 +20,35 @@
       "dest": "/static/$1"
     },
     {
+      "src": "/favicon.ico",
+      "dest": "/static/favicon.ico"
+    },
+    {
+      "src": "/robots.txt",
+      "dest": "/static/robots.txt"
+    },
+    {
       "src": "/(.*)",
-      "dest": "portfolio/wsgi.py"
+      "dest": "index.py"
     }
   ],
   "env": {
     "DEBUG": "False",
-    "DJANGO_ENV": "production"
-  },
-  "build": {
-    "env": {
-      "PYTHONPATH": "$PYTHONPATH:."
-    }
+    "DJANGO_ENV": "production",
+    "PYTHONPATH": ".",
+    "DJANGO_SETTINGS_MODULE": "portfolio.settings.production"
   },
   "functions": {
-    "portfolio/wsgi.py": {
-      "includeFiles": "**"
+    "index.py": {
+      "includeFiles": "**",
+      "excludeFiles": [
+        "node_modules/**",
+        ".git/**",
+        "__pycache__/**",
+        "*.pyc",
+        ".venv/**",
+        "venv/**"
+      ]
     }
   }
 }

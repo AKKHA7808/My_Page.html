@@ -7,24 +7,39 @@ from .base import *
 # Remove dj_database_url import since it's not installed yet
 # import dj_database_url
 
+print("🚀 Loading PRODUCTION settings...")
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
+print(f"🎯 Debug mode: {DEBUG}")
 
 # Allowed hosts for production
 ALLOWED_HOSTS = [
-    'your-domain.com',
-    'www.your-domain.com',
-    '.vercel.app',  # For Vercel deployment
-    '.herokuapp.com',  # For Heroku deployment
-    'localhost',  # For local testing
-    '127.0.0.1',  # For local testing
+    '*',  # Allow all hosts for Vercel (will be restricted by Vercel routing)
 ]
 
-# Add Vercel domains if available
+print(f"🌐 Allowed hosts: {ALLOWED_HOSTS}")
+
+# Vercel specific hosts
+VERCEL_HOSTS = [
+    '.vercel.app',
+    '.vercel.com',
+]
+
+# Add specific domains if provided
 if os.environ.get('VERCEL_URL'):
     ALLOWED_HOSTS.append(os.environ.get('VERCEL_URL'))
-if os.environ.get('VERCEL_DOMAIN'):
-    ALLOWED_HOSTS.append(os.environ.get('VERCEL_DOMAIN'))
+    print(f"🔗 Added Vercel URL: {os.environ.get('VERCEL_URL')}")
+if os.environ.get('VERCEL_PROJECT_PRODUCTION_URL'):
+    ALLOWED_HOSTS.append(os.environ.get('VERCEL_PROJECT_PRODUCTION_URL'))
+    print(f"🔗 Added Vercel Production URL: {os.environ.get('VERCEL_PROJECT_PRODUCTION_URL')}")
+
+# Custom domain support
+CUSTOM_DOMAINS = [
+    'your-domain.com',
+    'www.your-domain.com',
+]
+ALLOWED_HOSTS.extend(CUSTOM_DOMAINS)
 
 # Database - PostgreSQL for production (fallback to SQLite)
 if 'DATABASE_URL' in os.environ:

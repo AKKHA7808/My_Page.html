@@ -9,23 +9,34 @@ https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
 
 import os
 import sys
-from django.core.wsgi import get_wsgi_application
+from pathlib import Path
 
 # Add the project directory to Python path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_DIR))
 
 # Set Django settings for production on Vercel
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'portfolio.settings.production')
 os.environ.setdefault('DJANGO_ENV', 'production')
 os.environ.setdefault('DEBUG', 'False')
 
+# Import Django WSGI application
+from django.core.wsgi import get_wsgi_application
+
 # Initialize Django
-application = get_wsgi_application()
+try:
+    application = get_wsgi_application()
+except Exception as e:
+    print(f"Error initializing Django application: {e}")
+    # Fallback for debugging
+    import traceback
+    traceback.print_exc()
+    raise
 
 # Vercel compatibility
 app = application
 
-# For Vercel deployment
-def handler(request, context):
-    """Vercel serverless function handler."""
-    return application(request, context)
+# Handler for Vercel serverless functions
+def handler(event, context):
+    """Serverless function handler for Vercel."""
+    return application(event, context)
