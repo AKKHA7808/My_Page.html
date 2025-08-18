@@ -1,0 +1,93 @@
+name: 🚀 Auto Deploy to Vercel
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: 🧪 Test Django Application
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: 📦 Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: ⚙️ Set environment variables
+      run: |
+        echo "DJANGO_SETTINGS_MODULE=portfolio.settings.development" >> $GITHUB_ENV
+        echo "DEBUG=True" >> $GITHUB_ENV
+        
+    - name: 🔍 Check Django setup
+      run: |
+        python manage.py check
+        
+    - name: 🗃️ Run migrations
+      run: |
+        python manage.py makemigrations --dry-run --check
+        python manage.py migrate
+        
+    - name: 🧪 Run tests
+      run: |
+        python manage.py test --verbosity=2
+
+  deploy-preview:
+    name: 🔍 Deploy Preview (PR)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: test
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🚀 Deploy to Vercel (Preview)
+      uses: amondnet/vercel-action@v25
+      with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+        scope: ${{ secrets.VERCEL_ORG_ID }}
+
+  deploy-production:
+    name: 🚀 Deploy Production
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: test
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🚀 Deploy to Vercel (Production)
+      uses: amondnet/vercel-action@v25
+      with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+        vercel-args: '--prod'
+        scope: ${{ secrets.VERCEL_ORG_ID }}
+        
+    - name: 📝 Comment deployment URL
+      uses: actions/github-script@v6
+      if: success()
+      with:
+        script: |
+          github.rest.repos.createCommitComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            commit_sha: context.sha,
+            body: '🚀 Successfully deployed to production!\n\n📍 Live at: https://your-domain.vercel.app'
+          })

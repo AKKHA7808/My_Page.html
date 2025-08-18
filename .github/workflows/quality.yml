@@ -1,0 +1,72 @@
+name: 🔍 Quality Checks
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: 📝 Code Quality
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: 📦 Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install flake8 black isort
+        
+    - name: 🎨 Check code formatting (Black)
+      run: |
+        black --check --diff .
+      continue-on-error: true
+        
+    - name: 📋 Check import sorting (isort)
+      run: |
+        isort --check-only --diff .
+      continue-on-error: true
+        
+    - name: 🔍 Lint with flake8
+      run: |
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      continue-on-error: true
+
+  security:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: 📦 Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install safety bandit
+        
+    - name: 🔒 Check for security vulnerabilities (Safety)
+      run: |
+        safety check
+      continue-on-error: true
+        
+    - name: 🔍 Security linting (Bandit)
+      run: |
+        bandit -r . -x tests/ -f json
+      continue-on-error: true

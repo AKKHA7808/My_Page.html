@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "name": "django-portfolio",
   "builds": [
     {
       "src": "index.py",
@@ -12,12 +13,41 @@
   ],
   "routes": [
     {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "index.py"
     }
   ],
   "env": {
     "DEBUG": "False",
-    "DJANGO_ENV": "production"
+    "DJANGO_ENV": "production",
+    "DJANGO_SETTINGS_MODULE": "portfolio.settings.production"
+  },
+  "build": {
+    "env": {
+      "PYTHONPATH": "."
+    }
+  },
+  "github": {
+    "enabled": true,
+    "autoAlias": true,
+    "autoJobCancelation": true
+  },
+  "functions": {
+    "index.py": {
+      "includeFiles": "**",
+      "excludeFiles": [
+        "node_modules/**",
+        ".git/**",
+        "__pycache__/**",
+        "*.pyc",
+        ".venv/**",
+        "venv/**",
+        "*.log"
+      ]
+    }
   }
 }

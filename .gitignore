@@ -8,6 +8,19 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+
+# Vercel
+.vercel
+.vercel/
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+
+# Auto deployment files
+*.log
 build/
 develop-eggs/
 dist/
