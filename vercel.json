@@ -9,12 +9,27 @@
         "maxLambdaSize": "15mb", 
         "runtime": "python3.11"
       }
+    },
+    {
+      "src": "build.sh",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "staticfiles"
+      }
     }
   ],
   "routes": [
     {
       "src": "/static/(.*)",
-      "dest": "/static/$1"
+      "dest": "/staticfiles/$1"
+    },
+    {
+      "src": "/admin/(.*)",
+      "dest": "index.py"
+    },
+    {
+      "src": "/students/(.*)",
+      "dest": "index.py"
     },
     {
       "src": "/(.*)",
@@ -24,17 +39,15 @@
   "env": {
     "DEBUG": "False",
     "DJANGO_ENV": "production",
-    "DJANGO_SETTINGS_MODULE": "portfolio.settings.production"
+    "DJANGO_SETTINGS_MODULE": "portfolio.settings.production",
+    "PYTHONPATH": "."
   },
   "build": {
     "env": {
+      "DJANGO_SETTINGS_MODULE": "portfolio.settings.production",
+      "DEBUG": "False",
       "PYTHONPATH": "."
     }
-  },
-  "github": {
-    "enabled": true,
-    "autoAlias": true,
-    "autoJobCancelation": true
   },
   "functions": {
     "index.py": {
@@ -46,8 +59,17 @@
         "*.pyc",
         ".venv/**",
         "venv/**",
-        "*.log"
-      ]
+        "*.log",
+        ".env",
+        "db.sqlite3"
+      ],
+      "memory": 1024,
+      "maxDuration": 30
     }
+  },
+  "github": {
+    "enabled": true,
+    "autoAlias": true,
+    "autoJobCancelation": true
   }
 }
