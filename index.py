@@ -1,24 +1,22 @@
 import os
 import sys
-import django
-from django.core.wsgi import get_wsgi_application
 
 # Add project to Python path
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+path = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, path)
 
 # Set Django settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'portfolio.settings.production')
-os.environ.setdefault('DEBUG', 'False')
 
-# Setup Django
+# Django setup
+import django
 django.setup()
+
+# Import Django WSGI application
+from django.core.wsgi import get_wsgi_application
 
 # Create WSGI application
 application = get_wsgi_application()
 
-# Export for Vercel
+# Export for Vercel (this is what Vercel looks for)
 app = application
-
-def handler(request):
-    """Handler function for Vercel"""
-    return app(request.environ, request.start_response)

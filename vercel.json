@@ -1,75 +1,27 @@
 {
   "version": 2,
-  "name": "django-portfolio",
   "builds": [
     {
       "src": "index.py",
       "use": "@vercel/python",
-      "config": { 
-        "maxLambdaSize": "15mb", 
+      "config": {
+        "maxLambdaSize": "15mb",
         "runtime": "python3.11"
       }
     },
     {
-      "src": "build.sh",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "staticfiles"
-      }
+      "src": "static/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/static/(.*)",
-      "dest": "/staticfiles/$1"
-    },
-    {
-      "src": "/admin/(.*)",
-      "dest": "index.py"
-    },
-    {
-      "src": "/students/(.*)",
-      "dest": "index.py"
+      "dest": "/static/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "index.py"
+      "dest": "/index.py"
     }
-  ],
-  "env": {
-    "DEBUG": "False",
-    "DJANGO_ENV": "production",
-    "DJANGO_SETTINGS_MODULE": "portfolio.settings.production",
-    "PYTHONPATH": "."
-  },
-  "build": {
-    "env": {
-      "DJANGO_SETTINGS_MODULE": "portfolio.settings.production",
-      "DEBUG": "False",
-      "PYTHONPATH": "."
-    }
-  },
-  "functions": {
-    "index.py": {
-      "includeFiles": "**",
-      "excludeFiles": [
-        "node_modules/**",
-        ".git/**",
-        "__pycache__/**",
-        "*.pyc",
-        ".venv/**",
-        "venv/**",
-        "*.log",
-        ".env",
-        "db.sqlite3"
-      ],
-      "memory": 1024,
-      "maxDuration": 30
-    }
-  },
-  "github": {
-    "enabled": true,
-    "autoAlias": true,
-    "autoJobCancelation": true
-  }
+  ]
 }
