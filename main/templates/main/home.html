@@ -44,6 +44,9 @@
                         <a class="nav-link" href="{% url 'main:contact' %}">ติดต่อ</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:students' %}">นักเรียน</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'main:for_loop' %}">For Loop</a>
                     </li>
                 </ul>
@@ -69,6 +72,9 @@
                         <div class="hero-buttons">
                             <a href="{% url 'main:about' %}" class="btn btn-primary btn-lg me-3">
                                 <i class="fas fa-user me-2"></i>เกี่ยวกับผม
+                            </a>
+                            <a href="{% url 'main:students' %}" class="btn btn-success btn-lg me-3">
+                                <i class="fas fa-users me-2"></i>นักเรียน
                             </a>
                             <a href="{% url 'main:contact' %}" class="btn btn-outline-light btn-lg">
                                 <i class="fas fa-envelope me-2"></i>ติดต่อ

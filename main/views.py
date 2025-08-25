@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from datetime import date
 import json
+from .models import Students
 
 def index(request):
     """Main portfolio page - Home section"""
@@ -131,3 +132,14 @@ def for_loop_example(request):
     }
     
     return render(request, 'main/for.html', context)
+
+def students_list(request):
+    """Students page displaying all student records"""
+    students = Students.objects.all().order_by('student_id')
+    
+    context = {
+        'students': students,
+        'total_students': students.count(),
+    }
+    
+    return render(request, 'main/students.html', context)
