@@ -4,6 +4,7 @@ echo "🚀 Starting Vercel build process..."
 
 # Set environment variables for build
 export DJANGO_SETTINGS_MODULE=portfolio.settings.production
+export DJANGO_ENV=production
 export DEBUG=False
 
 # Install dependencies
@@ -26,6 +27,6 @@ fi
 
 # Collect static files
 echo "🎨 Collecting static files..."
-python3 manage.py collectstatic --noinput --clear
+DJANGO_ENV=production DJANGO_SETTINGS_MODULE=portfolio.settings.production python3 manage.py collectstatic --noinput --clear
 
 echo "✅ Build process completed successfully!"

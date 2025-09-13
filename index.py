@@ -7,6 +7,7 @@ sys.path.insert(0, path)
 
 # Set Django settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'portfolio.settings.production')
+os.environ.setdefault('DJANGO_ENV', 'production')
 
 # Django setup
 import django
